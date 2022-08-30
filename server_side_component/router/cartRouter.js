@@ -5,11 +5,11 @@ const { getCartDataController,
     updateAddCartDataController, updateDecCartDataController,
     deleteCartDataController } = require("../controller/cartController.js");
 
-router.get("/cartdata", getCartDataController);
-router.post("/cartdata", postCartDataController);
-router.put("/cartdata/add/:productId", updateAddCartDataController);
-router.put("/cartdata/dec/:productId", updateDecCartDataController);
-router.delete("/cartdata/:productId", deleteCartDataController);
+router.get("/cart", getCartDataController);
+router.post("/cart", postCartDataController);
+router.put("/cart/add/:productId", updateAddCartDataController);
+router.put("/cart/dec/:productId", updateDecCartDataController);
+router.delete("/cart/:productId", deleteCartDataController);
 
 
 module.exports = router;
