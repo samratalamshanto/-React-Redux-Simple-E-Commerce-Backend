@@ -15,7 +15,7 @@ const cartRouter = require("./server_side_component/router/cartRouter");
 const app = express();
 const PORT = process.env.PORT || 5000;
 const corsOptions = {
-    origin: `https://ecommece-websites.herokuapp.com/:${port}`,//"http://localhost:3000"
+    origin: `https://ecommece-websites.herokuapp.com/:${PORT}`,//"http://localhost:3000"
     credentials: true, //access-control-allow-credentials:true
     optionSuccessStatus: 200,
 };
