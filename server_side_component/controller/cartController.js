@@ -15,25 +15,31 @@ const getCartDataController = AsyncHandler(async (req, res) => {
 
 const postCartDataController = AsyncHandler(async (req, res) => {
     const { productId, qty } = req.body;
+    const exist = await CartDataModel.findOne({ productId });
+    if (exist) {
+        //no action needed 
+    }
+    else {
+        const cartData = new CartDataModel({
+            productId,
+            qty,
+        })
 
-    const cartData = new CartDataModel({
-        productId,
-        qty,
-    })
+        try {
+            if (cartData) {
+                cartData.save().then(() => {
+                    // console.log("saved data");
+                    res.status(201);
+                    res.send(JSON.stringify(cartData));
+                });
 
-    try {
-        if (cartData) {
-            cartData.save().then(() => {
-                console.log("saved data");
-                res.status(201);
-                res.send(JSON.stringify(cartData));
-            });
+            }
+        } catch (error) {
+            console.log(error);
 
         }
-    } catch (error) {
-        console.log(error);
-
     }
+
 
 
 })
@@ -51,7 +57,7 @@ const updateAddCartDataController = AsyncHandler(async (req, res) => {
             }
             else {
                 res.status(200);
-                console.log("Updated User : ", docs);
+                // console.log("Updated User : ", docs);
             }
         }).clone().catch(function (err) { console.log(err) })  //need clone() to same query many times---mongoDb 
         return update;
@@ -87,8 +93,10 @@ const deleteCartDataController = AsyncHandler(async (req, res) => {
 
     // console.log(exist);
     // console.log(exist._id);
+    if (exist) {
+        await CartDataModel.findByIdAndDelete(exist._id); //when data exist we can delete
+    }
 
-    await CartDataModel.findByIdAndDelete(exist._id);
 });
 
 
